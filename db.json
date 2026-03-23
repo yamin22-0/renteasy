@@ -1,0 +1,1461 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "James Kamau",
+      "email": "james@renteasy.com",
+      "password": "pass123",
+      "role": "admin",
+      "phone": "+254 712 345 678",
+      "avatar": "https://ui-avatars.com/api/?name=James+Kamau&background=22c55e&color=fff&size=128",
+      "joinDate": "2023-01-15"
+    },
+    {
+      "id": 2,
+      "name": "Grace Wanjiku",
+      "email": "grace@renteasy.com",
+      "password": "pass123",
+      "role": "admin",
+      "phone": "+254 723 456 789",
+      "avatar": "https://ui-avatars.com/api/?name=Grace+Wanjiku&background=22c55e&color=fff&size=128",
+      "joinDate": "2023-02-20"
+    },
+    {
+      "id": 3,
+      "name": "Aisha Mohamed",
+      "email": "aisha@gmail.com",
+      "password": "pass123",
+      "role": "tenant",
+      "phone": "+254 734 567 890",
+      "avatar": "https://ui-avatars.com/api/?name=Aisha+Mohamed&background=0ea5e9&color=fff&size=128",
+      "joinDate": "2023-06-10"
+    },
+    {
+      "id": 4,
+      "name": "Brian Ochieng",
+      "email": "brian@gmail.com",
+      "password": "pass123",
+      "role": "tenant",
+      "phone": "+254 745 678 901",
+      "avatar": "https://ui-avatars.com/api/?name=Brian+Ochieng&background=f97316&color=fff&size=128",
+      "joinDate": "2023-07-22"
+    },
+    {
+      "id": 5,
+      "name": "Fatuma Hassan",
+      "email": "fatuma@gmail.com",
+      "password": "pass123",
+      "role": "tenant",
+      "phone": "+254 756 789 012",
+      "avatar": "https://ui-avatars.com/api/?name=Fatuma+Hassan&background=8b5cf6&color=fff&size=128",
+      "joinDate": "2023-09-05"
+    },
+    {
+      "id": 6,
+      "name": "David Mutua",
+      "email": "david@gmail.com",
+      "password": "pass123",
+      "role": "tenant",
+      "phone": "+254 767 890 123",
+      "avatar": "https://ui-avatars.com/api/?name=David+Mutua&background=ec4899&color=fff&size=128",
+      "joinDate": "2023-11-14"
+    },
+    {
+      "name": "Binyamin Ahmed",
+      "email": "binyaminahmed594@gmail.com",
+      "password": "12345678",
+      "phone": "0733098778",
+      "role": "tenant",
+      "avatar": "https://ui-avatars.com/api/?name=Binyamin%20Ahmed&background=22c55e&color=fff&size=128",
+      "joinDate": "2026-03-23",
+      "id": 7
+    }
+  ],
+  "houses": [
+    {
+      "id": 1,
+      "title": "Luxury 3BR Apartment in Westlands",
+      "description": "A stunning modern apartment in the heart of Westlands with panoramic city views. Features high-end finishes, a fully fitted kitchen, and access to a rooftop pool. Walking distance to major malls and business hubs.",
+      "price": 85000,
+      "type": "Apartment",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "county": "Nairobi",
+      "location": "Westlands, Nairobi",
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": -1.2641,
+      "lng": 36.8027,
+      "images": [
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+        "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=800&q=80"
+      ],
+      "amenities": [
+        "WiFi",
+        "Parking",
+        "Swimming Pool",
+        "Gym",
+        "Security",
+        "Balcony",
+        "DSTV"
+      ],
+      "rating": 4.8,
+      "dateAdded": "2024-01-10"
+    },
+    {
+      "id": 2,
+      "title": "Spacious 2BR Bungalow in Karen",
+      "description": "Beautiful bungalow set in a serene Karen neighborhood with lush gardens. Perfect for families seeking tranquility while remaining close to the city. Features a large compound ideal for children.",
+      "price": 65000,
+      "type": "Bungalow",
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "county": "Nairobi",
+      "location": "Karen, Nairobi",
+      "status": "Available",
+      "verified": true,
+      "popular": false,
+      "lat": -1.3186,
+      "lng": 36.7106,
+      "images": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+        "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=80",
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+        "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80",
+        "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80"
+      ],
+      "amenities": [
+        "Garden",
+        "Parking",
+        "Security",
+        "Borehole",
+        "Staff Quarters"
+      ],
+      "rating": 4.6,
+      "dateAdded": "2024-01-15"
+    },
+    {
+      "id": 3,
+      "title": "Modern Studio in Kilimani",
+      "description": "Compact and modern studio apartment ideal for young professionals. Located in the trendy Kilimani area with easy access to restaurants, cafes, and nightlife.",
+      "price": 32000,
+      "type": "Studio",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "county": "Nairobi",
+      "location": "Kilimani, Nairobi",
+      "status": "Rented",
+      "verified": false,
+      "popular": true,
+      "lat": -1.2889,
+      "lng": 36.7872,
+      "images": [
+        "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+        "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&q=80",
+        "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&q=80",
+        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80"
+      ],
+      "amenities": [
+        "WiFi",
+        "Backup Generator",
+        "Security",
+        "Lift"
+      ],
+      "rating": 4.2,
+      "dateAdded": "2024-01-20"
+    },
+    {
+      "id": 4,
+      "title": "4BR Villa with Pool in Runda",
+      "description": "Exquisite villa in the prestigious Runda estate. Features a private swimming pool, manicured gardens, and a detached guest house. Ideal for executives and diplomatic families.",
+      "price": 250000,
+      "type": "Villa",
+      "bedrooms": 4,
+      "bathrooms": 4,
+      "county": "Nairobi",
+      "location": "Runda, Nairobi",
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": -1.2003,
+      "lng": 36.7989,
+      "images": [
+        "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80",
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+        "https://images.unsplash.com/photo-1574739782594-db4ead022697?w=800&q=80",
+        "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&q=80",
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80"
+      ],
+      "amenities": [
+        "Swimming Pool",
+        "Garden",
+        "Gym",
+        "Staff Quarters",
+        "Parking x4",
+        "CCTV",
+        "Smart Home",
+        "Solar"
+      ],
+      "rating": 4.9,
+      "dateAdded": "2024-02-01"
+    },
+    {
+      "id": 5,
+      "title": "Beachfront 3BR Apartment in Nyali",
+      "description": "Wake up to ocean views every morning in this stunning beachfront apartment. Features direct beach access, a spacious balcony overlooking the Indian Ocean, and resort-like facilities.",
+      "price": 95000,
+      "type": "Apartment",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "county": "Mombasa",
+      "location": "Nyali, Mombasa",
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": -4.0267,
+      "lng": 39.71,
+      "images": [
+        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=80",
+        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
+        "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=80",
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80",
+        "https://images.unsplash.com/photo-1582610285985-a42d9193f2fd?w=800&q=80"
+      ],
+      "amenities": [
+        "Beach Access",
+        "Pool",
+        "Security",
+        "Parking",
+        "WiFi",
+        "DSTV",
+        "Backup Power"
+      ],
+      "rating": 4.7,
+      "dateAdded": "2024-02-05"
+    },
+    {
+      "id": 6,
+      "title": "Old Town 2BR Swahili House",
+      "description": "Experience authentic coastal living in this beautifully restored Swahili-style house in historic Old Town Mombasa. Ornate carved doors, high ceilings, and a rooftop terrace with harbor views.",
+      "price": 45000,
+      "type": "House",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "county": "Mombasa",
+      "location": "Old Town, Mombasa",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -4.0631,
+      "lng": 39.669,
+      "images": [
+        "https://images.unsplash.com/photo-1543489822-c49534f3271f?w=800&q=80",
+        "https://images.unsplash.com/photo-1571566882372-1598d88abd90?w=800&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80",
+        "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80"
+      ],
+      "amenities": [
+        "Rooftop Terrace",
+        "WiFi",
+        "Security",
+        "Heritage Architecture"
+      ],
+      "rating": 4.4,
+      "dateAdded": "2024-02-10"
+    },
+    {
+      "id": 7,
+      "title": "Lakeside 3BR Townhouse in Milimani",
+      "description": "Elegant townhouse with breathtaking views of Lake Victoria. Situated in Kisumu's upmarket Milimani estate, featuring spacious rooms, modern kitchen, and a private garden.",
+      "price": 55000,
+      "type": "Townhouse",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "county": "Kisumu",
+      "location": "Milimani, Kisumu",
+      "status": "Available",
+      "verified": true,
+      "popular": false,
+      "lat": -0.0917,
+      "lng": 34.758,
+      "images": [
+        "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80",
+        "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+        "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=80",
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80"
+      ],
+      "amenities": [
+        "Lake View",
+        "Garden",
+        "Parking",
+        "Security",
+        "WiFi"
+      ],
+      "rating": 4.5,
+      "dateAdded": "2024-02-12"
+    },
+    {
+      "id": 8,
+      "title": "Budget 1BR in Kondele",
+      "description": "Affordable one-bedroom unit in Kondele, Kisumu. Clean, safe, and well-maintained. Walking distance to market and public transport. Ideal for singles and young couples.",
+      "price": 12000,
+      "type": "Apartment",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "county": "Kisumu",
+      "location": "Kondele, Kisumu",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -0.1027,
+      "lng": 34.7711,
+      "images": [
+        "https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=800&q=80",
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80",
+        "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80",
+        "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?w=800&q=80",
+        "https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=800&q=80"
+      ],
+      "amenities": [
+        "Security",
+        "Water 24/7",
+        "Common Area"
+      ],
+      "rating": 4.1,
+      "dateAdded": "2024-02-15"
+    },
+    {
+      "id": 9,
+      "title": "3BR Family Home in Nakuru Town",
+      "description": "Comfortable family home in a quiet Nakuru neighborhood. Features a large compound, servant quarters, and easy access to Lake Nakuru National Park.",
+      "price": 40000,
+      "type": "House",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "county": "Nakuru",
+      "location": "Nakuru Town, Nakuru",
+      "status": "Rented",
+      "verified": true,
+      "popular": false,
+      "lat": -0.3031,
+      "lng": 36.08,
+      "images": [
+        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+        "https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=800&q=80",
+        "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800&q=80",
+        "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80",
+        "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80"
+      ],
+      "amenities": [
+        "Garden",
+        "Parking",
+        "Security",
+        "Staff Quarters",
+        "Borehole"
+      ],
+      "rating": 4.3,
+      "dateAdded": "2024-02-18"
+    },
+    {
+      "id": 10,
+      "title": "2BR Apartment near Nakuru CBD",
+      "description": "Well-appointed apartment just minutes from Nakuru CBD. Perfect for professionals working in the city. Features modern furnishings and reliable utilities.",
+      "price": 28000,
+      "type": "Apartment",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "county": "Nakuru",
+      "location": "Section 58, Nakuru",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -0.2827,
+      "lng": 36.067,
+      "images": [
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+        "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db?w=800&q=80",
+        "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+      ],
+      "amenities": [
+        "WiFi",
+        "Security",
+        "Parking",
+        "Backup Generator"
+      ],
+      "rating": 4.2,
+      "dateAdded": "2024-02-20"
+    },
+    {
+      "id": 11,
+      "title": "3BR Home in Garissa Town",
+      "description": "Spacious family home in a secure Garissa neighborhood. Features cross-ventilation for hot climate comfort, a large compound, and reliable water supply from a borehole.",
+      "price": 25000,
+      "type": "House",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "county": "Garissa",
+      "location": "Garissa Town, Garissa",
+      "status": "Available",
+      "verified": true,
+      "popular": false,
+      "lat": -0.4532,
+      "lng": 39.6461,
+      "images": [
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+        "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80",
+        "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80"
+      ],
+      "amenities": [
+        "Borehole",
+        "Solar Power",
+        "Security",
+        "Parking",
+        "Garden"
+      ],
+      "rating": 4,
+      "dateAdded": "2024-02-22"
+    },
+    {
+      "id": 12,
+      "title": "2BR Apartment in Eldoret CBD",
+      "description": "Modern apartment in Eldoret's thriving CBD. Ideal for professionals and business owners. Features uninterrupted water supply and 24-hour security.",
+      "price": 30000,
+      "type": "Apartment",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "county": "Uasin Gishu",
+      "location": "Eldoret CBD, Uasin Gishu",
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": 0.5143,
+      "lng": 35.2698,
+      "images": [
+        "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=800&q=80",
+        "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=800&q=80",
+        "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80"
+      ],
+      "amenities": [
+        "WiFi",
+        "Security",
+        "Backup Generator",
+        "Parking",
+        "Lift"
+      ],
+      "rating": 4.4,
+      "dateAdded": "2024-02-25"
+    },
+    {
+      "id": 13,
+      "title": "Beachfront Cottage in Watamu",
+      "description": "Charming coral-stone cottage steps from Watamu Beach. Perfect for a seaside retreat. Features a verandah facing the ocean and access to Watamu Marine National Park.",
+      "price": 60000,
+      "type": "Cottage",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "county": "Kilifi",
+      "location": "Watamu, Kilifi",
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": -3.3527,
+      "lng": 40.0113,
+      "images": [
+        "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=800&q=80",
+        "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80",
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80"
+      ],
+      "amenities": [
+        "Beach Access",
+        "Garden",
+        "Parking",
+        "Outdoor Shower",
+        "WiFi"
+      ],
+      "rating": 4.8,
+      "dateAdded": "2024-03-01"
+    },
+    {
+      "id": 14,
+      "title": "3BR Maisonette in Machakos Town",
+      "description": "Beautiful maisonette in a gated community in Machakos. Features a rooftop terrace with views of the Machakos Hills and a modern open-plan living area.",
+      "price": 38000,
+      "type": "Maisonette",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "county": "Machakos",
+      "location": "Machakos Town, Machakos",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -1.5177,
+      "lng": 37.2634,
+      "images": [
+        "https://images.unsplash.com/photo-1600047508788-786f3865b0ef?w=800&q=80",
+        "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80",
+        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+        "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=80",
+        "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80"
+      ],
+      "amenities": [
+        "Rooftop Terrace",
+        "Security",
+        "Parking",
+        "Garden",
+        "WiFi"
+      ],
+      "rating": 4.3,
+      "dateAdded": "2024-03-05"
+    },
+    {
+      "id": 15,
+      "title": "4BR Home in Ngong, Kajiado",
+      "description": "Spacious family home in the cool highlands of Ngong. Features an expansive compound, breathtaking views of the Ngong Hills, and a well-manicured garden.",
+      "price": 75000,
+      "type": "House",
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "county": "Kajiado",
+      "location": "Ngong, Kajiado",
+      "status": "Available",
+      "verified": true,
+      "popular": false,
+      "lat": -1.3626,
+      "lng": 36.6607,
+      "images": [
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+        "https://images.unsplash.com/photo-1574739782594-db4ead022697?w=800&q=80",
+        "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80",
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80"
+      ],
+      "amenities": [
+        "Ngong Hills View",
+        "Garden",
+        "Parking",
+        "Security",
+        "Borehole"
+      ],
+      "rating": 4.6,
+      "dateAdded": "2024-03-08"
+    },
+    {
+      "id": 16,
+      "title": "2BR Apartment in Nyeri Town",
+      "description": "Modern apartment in Nyeri Town center. Located near Mount Kenya views and the famous Outspan Hotel. Quiet neighborhood ideal for families.",
+      "price": 22000,
+      "type": "Apartment",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "county": "Nyeri",
+      "location": "Nyeri Town, Nyeri",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -0.4167,
+      "lng": 36.95,
+      "images": [
+        "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80",
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+        "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&q=80",
+        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80"
+      ],
+      "amenities": [
+        "Mountain View",
+        "Security",
+        "Parking",
+        "WiFi"
+      ],
+      "rating": 4.2,
+      "dateAdded": "2024-03-10"
+    },
+    {
+      "id": 17,
+      "title": "3BR Townhouse in Meru Town",
+      "description": "Elegant townhouse in Meru's best neighborhood. Surrounded by coffee and tea plantations. Features fresh highland air and close proximity to Mount Kenya.",
+      "price": 35000,
+      "type": "Townhouse",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "county": "Meru",
+      "location": "Meru Town, Meru",
+      "status": "Rented",
+      "verified": true,
+      "popular": false,
+      "lat": 0.0467,
+      "lng": 37.649,
+      "images": [
+        "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80",
+        "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80",
+        "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=80",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80"
+      ],
+      "amenities": [
+        "Garden",
+        "Parking",
+        "Security",
+        "Borehole",
+        "Highland View"
+      ],
+      "rating": 4.5,
+      "dateAdded": "2024-03-12"
+    },
+    {
+      "id": 18,
+      "title": "2BR Apartment in Ruiru, Kiambu",
+      "description": "Affordable modern apartment in Ruiru, close to the Eastern Bypass. Perfect for professionals working in Nairobi looking for a quieter, more affordable option.",
+      "price": 28000,
+      "type": "Apartment",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "county": "Kiambu",
+      "location": "Ruiru, Kiambu",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -1.1456,
+      "lng": 36.967,
+      "images": [
+        "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&q=80",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80"
+      ],
+      "amenities": [
+        "WiFi",
+        "Security",
+        "Parking",
+        "Backup Water"
+      ],
+      "rating": 4.1,
+      "dateAdded": "2024-03-15"
+    },
+    {
+      "id": 19,
+      "title": "5BR Mansion in Muthaiga",
+      "description": "Grand mansion in Muthaiga — Nairobi's most exclusive address. Features a heated pool, wine cellar, home theater, and staff quarters. Perfect for high-net-worth families.",
+      "price": 450000,
+      "type": "Mansion",
+      "bedrooms": 5,
+      "bathrooms": 5,
+      "county": "Nairobi",
+      "location": "Muthaiga, Nairobi",
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": -1.25,
+      "lng": 36.8167,
+      "images": [
+        "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80",
+        "https://images.unsplash.com/photo-1574739782594-db4ead022697?w=800&q=80",
+        "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&q=80",
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+      ],
+      "amenities": [
+        "Heated Pool",
+        "Wine Cellar",
+        "Home Theater",
+        "Staff Quarters",
+        "Gym",
+        "Smart Home",
+        "CCTV",
+        "8-Car Garage"
+      ],
+      "rating": 5,
+      "dateAdded": "2024-03-20"
+    },
+    {
+      "id": 20,
+      "title": "1BR Studio in South B, Nairobi",
+      "description": "Cozy and affordable studio apartment in South B. Clean, modern finishes with reliable utilities. Close to supermarkets and public transport.",
+      "price": 20000,
+      "type": "Studio",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "county": "Nairobi",
+      "location": "South B, Nairobi",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -1.305,
+      "lng": 36.831,
+      "images": [
+        "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&q=80",
+        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80",
+        "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?w=800&q=80",
+        "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&q=80"
+      ],
+      "amenities": [
+        "Security",
+        "WiFi",
+        "Backup Generator"
+      ],
+      "rating": 4,
+      "dateAdded": "2024-03-22"
+    },
+    {
+      "id": 21,
+      "title": "3BR Apartment in Bamburi, Mombasa",
+      "description": "Modern apartment in Bamburi near the beach. Walking distance to Bamburi Beach and excellent nightlife. Features a rooftop pool with ocean views.",
+      "price": 55000,
+      "type": "Apartment",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "county": "Mombasa",
+      "location": "Bamburi, Mombasa",
+      "status": "Available",
+      "verified": true,
+      "popular": false,
+      "lat": -3.9833,
+      "lng": 39.7249,
+      "images": [
+        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
+        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=80",
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80",
+        "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=80",
+        "https://images.unsplash.com/photo-1582610285985-a42d9193f2fd?w=800&q=80"
+      ],
+      "amenities": [
+        "Rooftop Pool",
+        "Beach Access",
+        "Security",
+        "Parking",
+        "WiFi"
+      ],
+      "rating": 4.6,
+      "dateAdded": "2024-03-25"
+    },
+    {
+      "id": 22,
+      "title": "2BR Bungalow in Rongai",
+      "description": "Charming bungalow in quiet Rongai with a large compound. Perfect for families with children. Easy access to Nairobi via Rongai route matatus.",
+      "price": 32000,
+      "type": "Bungalow",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "county": "Kajiado",
+      "location": "Rongai, Kajiado",
+      "status": "Rented",
+      "verified": false,
+      "popular": false,
+      "lat": -1.3944,
+      "lng": 36.7553,
+      "images": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+        "https://images.unsplash.com/photo-1600047508788-786f3865b0ef?w=800&q=80",
+        "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=80",
+        "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80",
+        "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80"
+      ],
+      "amenities": [
+        "Garden",
+        "Security",
+        "Parking",
+        "Borehole"
+      ],
+      "rating": 4.2,
+      "dateAdded": "2024-04-01"
+    },
+    {
+      "id": 23,
+      "title": "1BR Apartment in Thika, Kiambu",
+      "description": "Budget-friendly apartment in Thika town. Close to Thika Superhighway for easy commute to Nairobi. Clean and safe neighborhood.",
+      "price": 15000,
+      "type": "Apartment",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "county": "Kiambu",
+      "location": "Thika, Kiambu",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -1.0332,
+      "lng": 37.0693,
+      "images": [
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80",
+        "https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=800&q=80",
+        "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80",
+        "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?w=800&q=80",
+        "https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=800&q=80"
+      ],
+      "amenities": [
+        "Security",
+        "Water",
+        "Parking"
+      ],
+      "rating": 4,
+      "dateAdded": "2024-04-05"
+    },
+    {
+      "id": 24,
+      "title": "4BR Executive Home in Gigiri",
+      "description": "Executive home in Gigiri near UN offices and embassies. Features diplomatic-grade security, a large pool, and beautifully landscaped gardens.",
+      "price": 320000,
+      "type": "House",
+      "bedrooms": 4,
+      "bathrooms": 4,
+      "county": "Nairobi",
+      "location": "Gigiri, Nairobi",
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": -1.2294,
+      "lng": 36.8026,
+      "images": [
+        "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&q=80",
+        "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80",
+        "https://images.unsplash.com/photo-1574739782594-db4ead022697?w=800&q=80",
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80"
+      ],
+      "amenities": [
+        "Swimming Pool",
+        "Garden",
+        "Gym",
+        "Panic Room",
+        "CCTV",
+        "Backup Generator",
+        "Staff Quarters"
+      ],
+      "rating": 4.9,
+      "dateAdded": "2024-04-08"
+    },
+    {
+      "id": 25,
+      "title": "2BR Apartment in Kilifi Town",
+      "description": "Lovely apartment in Kilifi town with views of Kilifi Creek. Close to Bofa Beach and Kilifi Creek, perfect for beach lovers.",
+      "price": 35000,
+      "type": "Apartment",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "county": "Kilifi",
+      "location": "Kilifi Town, Kilifi",
+      "status": "Available",
+      "verified": true,
+      "popular": false,
+      "lat": -3.6305,
+      "lng": 39.8499,
+      "images": [
+        "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80",
+        "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=800&q=80",
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
+        "https://images.unsplash.com/photo-1582610285985-a42d9193f2fd?w=800&q=80"
+      ],
+      "amenities": [
+        "Creek View",
+        "Security",
+        "Parking",
+        "WiFi"
+      ],
+      "rating": 4.5,
+      "dateAdded": "2024-04-10"
+    },
+    {
+      "id": 26,
+      "title": "3BR Home in Nyeri Outskirts",
+      "description": "Peaceful family home on the outskirts of Nyeri with stunning views of Mount Kenya. Features a large garden with fruit trees and a fresh vegetable plot.",
+      "price": 30000,
+      "type": "House",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "county": "Nyeri",
+      "location": "Karatina, Nyeri",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -0.4729,
+      "lng": 37.1281,
+      "images": [
+        "https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=800&q=80",
+        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+        "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800&q=80",
+        "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80",
+        "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80"
+      ],
+      "amenities": [
+        "Mountain View",
+        "Fruit Garden",
+        "Security",
+        "Borehole",
+        "Parking"
+      ],
+      "rating": 4.3,
+      "dateAdded": "2024-04-12"
+    },
+    {
+      "id": 27,
+      "title": "1BR Bedsitter in Eldoret",
+      "description": "Affordable bedsitter in Eldoret near MTRH hospital and Moi University. Ideal for medical staff, students and young professionals.",
+      "price": 10000,
+      "type": "Bedsitter",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "county": "Uasin Gishu",
+      "location": "Langas, Eldoret",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": 0.52,
+      "lng": 35.28,
+      "images": [
+        "https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=800&q=80",
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80",
+        "https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=800&q=80",
+        "https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?w=800&q=80",
+        "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80"
+      ],
+      "amenities": [
+        "Security",
+        "Water",
+        "Shared Kitchen"
+      ],
+      "rating": 3.9,
+      "dateAdded": "2024-04-15"
+    },
+    {
+      "id": 28,
+      "title": "3BR Penthouse in Upper Hill",
+      "description": "Prestigious penthouse in Upper Hill with 360-degree city views. Features floor-to-ceiling windows, a private rooftop deck, and concierge services.",
+      "price": 180000,
+      "type": "Penthouse",
+      "bedrooms": 3,
+      "bathrooms": 3,
+      "county": "Nairobi",
+      "location": "Upper Hill, Nairobi",
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": -1.2996,
+      "lng": 36.8113,
+      "images": [
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+        "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=800&q=80"
+      ],
+      "amenities": [
+        "Rooftop Deck",
+        "Concierge",
+        "Gym",
+        "Pool",
+        "Smart Home",
+        "City View",
+        "Valet Parking"
+      ],
+      "rating": 4.9,
+      "dateAdded": "2024-04-18"
+    },
+    {
+      "id": 29,
+      "title": "2BR Apartment in Kisumu West",
+      "description": "Well-maintained apartment in Kisumu West with sunset views over Lake Victoria. Close to the fishing port and the famous Dunga Beach.",
+      "price": 22000,
+      "type": "Apartment",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "county": "Kisumu",
+      "location": "Kisumu West, Kisumu",
+      "status": "Available",
+      "verified": false,
+      "popular": false,
+      "lat": -0.1022,
+      "lng": 34.7461,
+      "images": [
+        "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80",
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+        "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db?w=800&q=80",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80"
+      ],
+      "amenities": [
+        "Lake View",
+        "Security",
+        "WiFi",
+        "Parking"
+      ],
+      "rating": 4.2,
+      "dateAdded": "2024-04-20"
+    },
+    {
+      "id": 30,
+      "title": "5BR Colonial Home in Lavington",
+      "description": "Grand colonial home in the leafy Lavington suburb. Features original hardwood floors, a library, wine room, and a stunning rose garden. Rare heritage property.",
+      "price": 380000,
+      "type": "House",
+      "bedrooms": 5,
+      "bathrooms": 4,
+      "county": "Nairobi",
+      "location": "Lavington, Nairobi",
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": -1.275,
+      "lng": 36.7754,
+      "images": [
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+        "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80",
+        "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80"
+      ],
+      "amenities": [
+        "Library",
+        "Wine Room",
+        "Rose Garden",
+        "Gym",
+        "Pool",
+        "Staff Quarters",
+        "Multiple Parking",
+        "Heritage Features"
+      ],
+      "rating": 4.8,
+      "dateAdded": "2024-04-22"
+    },
+    {
+      "title": "Garissa-Luxury",
+      "description": "This property is a luxurious 3 bedroom house with graet view and proximity to town",
+      "price": 30000,
+      "type": "Townhouse",
+      "location": "Bula Mzuri",
+      "county": "Garissa",
+      "bedrooms": 3,
+      "bathrooms": 1,
+      "amenities": [
+        "WiFi",
+        "Parking",
+        "Solar",
+        "Balcony",
+        "Security",
+        "CCTV"
+      ],
+      "status": "Available",
+      "verified": true,
+      "popular": true,
+      "lat": 5.9,
+      "lng": 27.09,
+      "images": [
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+        "https://images.unsplash.com/photo-1507089947368-19c1da9775ae",
+        "https://images.unsplash.com/photo-1560185127-6ed189bf02f4",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb"
+      ],
+      "dateAdded": "2026-03-23",
+      "rating": 4,
+      "id": 31
+    }
+  ],
+  "rentals": [
+    {
+      "id": 1,
+      "houseId": 3,
+      "tenantId": 3,
+      "startDate": "2023-07-01",
+      "endDate": "2024-06-30",
+      "price": 32000,
+      "status": "active",
+      "renewals": 0
+    },
+    {
+      "id": 2,
+      "houseId": 9,
+      "tenantId": 4,
+      "startDate": "2023-08-01",
+      "endDate": "2024-07-31",
+      "price": 40000,
+      "status": "active",
+      "renewals": 1
+    },
+    {
+      "id": 3,
+      "houseId": 17,
+      "tenantId": 5,
+      "startDate": "2023-09-01",
+      "endDate": "2024-08-31",
+      "price": 35000,
+      "status": "active",
+      "renewals": 0
+    },
+    {
+      "id": 4,
+      "houseId": 22,
+      "tenantId": 6,
+      "startDate": "2023-10-01",
+      "endDate": "2024-04-30",
+      "price": 32000,
+      "status": "active",
+      "renewals": 0
+    },
+    {
+      "houseId": 5,
+      "tenantId": 7,
+      "price": 95000,
+      "startDate": "2026-03-23",
+      "endDate": "2027-03-23",
+      "status": "active",
+      "renewals": 0,
+      "createdAt": "2026-03-23T20:14:43.190Z",
+      "id": 5
+    },
+    {
+      "houseId": 5,
+      "tenantId": 7,
+      "price": 95000,
+      "startDate": "2026-03-23",
+      "endDate": "2027-03-23",
+      "status": "active",
+      "renewals": 0,
+      "createdAt": "2026-03-23T20:15:51.699Z",
+      "id": 6
+    },
+    {
+      "tenantId": 7,
+      "houseId": 2,
+      "bookingId": 6,
+      "startDate": "2026-03-24",
+      "endDate": "2027-03-24",
+      "price": 65000,
+      "status": "active",
+      "renewals": 0,
+      "id": 7
+    }
+  ],
+  "favorites": [
+    {
+      "id": 1,
+      "houseId": 1,
+      "tenantId": 3
+    },
+    {
+      "id": 2,
+      "houseId": 4,
+      "tenantId": 3
+    },
+    {
+      "id": 3,
+      "houseId": 5,
+      "tenantId": 3
+    },
+    {
+      "id": 4,
+      "houseId": 13,
+      "tenantId": 4
+    },
+    {
+      "id": 5,
+      "houseId": 28,
+      "tenantId": 4
+    },
+    {
+      "tenantId": 3,
+      "houseId": 11,
+      "id": 6
+    },
+    {
+      "tenantId": 7,
+      "houseId": 1,
+      "id": 7
+    },
+    {
+      "tenantId": 7,
+      "houseId": 5,
+      "id": 8
+    }
+  ],
+  "issues": [
+    {
+      "id": 1,
+      "houseId": 3,
+      "tenantId": 3,
+      "title": "Leaking bathroom tap",
+      "description": "The cold water tap in the main bathroom has been leaking for 3 days. Water is pooling on the floor.",
+      "category": "Plumbing",
+      "priority": "High",
+      "status": "In Progress",
+      "adminNote": "Plumber scheduled for Friday",
+      "createdAt": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "houseId": 3,
+      "tenantId": 3,
+      "title": "Broken window latch",
+      "description": "The latch on the bedroom window is broken and the window cannot be secured. Security concern.",
+      "category": "Security",
+      "priority": "High",
+      "status": "Open",
+      "adminNote": null,
+      "createdAt": "2024-01-20T14:00:00Z"
+    },
+    {
+      "id": 3,
+      "houseId": 9,
+      "tenantId": 4,
+      "title": "Power outage in kitchen",
+      "description": "The kitchen sockets have no power. Checked the fuse box but unable to identify the issue.",
+      "category": "Electrical",
+      "priority": "Medium",
+      "status": "Resolved",
+      "adminNote": "Electrician replaced faulty socket - resolved 25 Jan",
+      "createdAt": "2024-01-22T09:15:00Z"
+    }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "houseId": 1,
+      "tenantId": 3,
+      "moveInDate": "2024-03-01",
+      "price": 85000,
+      "status": "Approved",
+      "rejectionNote": null,
+      "createdAt": "2024-02-10T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "houseId": 7,
+      "tenantId": 4,
+      "moveInDate": "2024-03-15",
+      "price": 55000,
+      "status": "Approved",
+      "rejectionNote": null,
+      "createdAt": "2024-02-12T10:30:00Z"
+    },
+    {
+      "id": 3,
+      "houseId": 13,
+      "tenantId": 5,
+      "moveInDate": "2024-04-01",
+      "price": 60000,
+      "status": "Rejected",
+      "rejectionNote": "Property already booked for that period",
+      "createdAt": "2024-02-14T11:00:00Z"
+    },
+    {
+      "houseId": 2,
+      "tenantId": 3,
+      "moveInDate": "2026-04-01",
+      "price": 65000,
+      "status": "Approved",
+      "rejectionNote": null,
+      "createdAt": "2026-03-23T09:55:09.486Z",
+      "id": 4
+    },
+    {
+      "houseId": 29,
+      "tenantId": 7,
+      "moveInDate": "2026-04-01",
+      "price": 22000,
+      "status": "Approved",
+      "rejectionNote": null,
+      "createdAt": "2026-03-23T19:56:28.059Z",
+      "id": 5
+    },
+    {
+      "houseId": 2,
+      "tenantId": 7,
+      "moveInDate": "2026-03-24",
+      "price": 65000,
+      "status": "Approved",
+      "rejectionNote": null,
+      "createdAt": "2026-03-23T20:47:40.279Z",
+      "id": 6
+    },
+    {
+      "houseId": 8,
+      "tenantId": 7,
+      "moveInDate": "2026-03-24",
+      "price": 12000,
+      "status": "Pending",
+      "rejectionNote": null,
+      "createdAt": "2026-03-23T21:05:40.843Z",
+      "id": 7
+    }
+  ],
+  "payments": [
+    {
+      "id": 1,
+      "rentalId": 1,
+      "tenantId": 3,
+      "amount": 32000,
+      "method": "M-Pesa",
+      "transactionId": "QKL4X7P2M",
+      "status": "Completed",
+      "escrowStatus": "Released",
+      "date": "2023-07-05"
+    },
+    {
+      "id": 2,
+      "rentalId": 1,
+      "tenantId": 3,
+      "amount": 32000,
+      "method": "M-Pesa",
+      "transactionId": "RMN5Y8Q3N",
+      "status": "Completed",
+      "escrowStatus": "Released",
+      "date": "2023-08-05"
+    },
+    {
+      "id": 3,
+      "rentalId": 1,
+      "tenantId": 3,
+      "amount": 32000,
+      "method": "M-Pesa",
+      "transactionId": "SNO6Z9R4O",
+      "status": "Completed",
+      "escrowStatus": "Released",
+      "date": "2023-09-05"
+    },
+    {
+      "id": 4,
+      "rentalId": 2,
+      "tenantId": 4,
+      "amount": 40000,
+      "method": "Airtel Money",
+      "transactionId": "TOP7A0S5P",
+      "status": "Completed",
+      "escrowStatus": "Released",
+      "date": "2023-08-03"
+    },
+    {
+      "id": 5,
+      "rentalId": 2,
+      "tenantId": 4,
+      "amount": 40000,
+      "method": "Airtel Money",
+      "transactionId": "UPQ8B1T6Q",
+      "status": "Completed",
+      "escrowStatus": "Released",
+      "date": "2023-09-03"
+    },
+    {
+      "id": 6,
+      "rentalId": 3,
+      "tenantId": 5,
+      "amount": 35000,
+      "method": "Bank Transfer",
+      "transactionId": "VQR9C2U7R",
+      "status": "Completed",
+      "escrowStatus": "Released",
+      "date": "2023-09-02"
+    },
+    {
+      "id": 7,
+      "rentalId": 1,
+      "tenantId": 3,
+      "amount": 32000,
+      "method": "M-Pesa",
+      "transactionId": "WRS0D3V8S",
+      "status": "Pending",
+      "escrowStatus": "Held",
+      "date": "2024-01-05"
+    },
+    {
+      "rentalId": 1,
+      "tenantId": 3,
+      "amount": 32000,
+      "method": "M-Pesa",
+      "transactionId": "E2VK4Z32O3",
+      "status": "Pending",
+      "escrowStatus": "Held",
+      "date": "2026-03-23",
+      "id": 8
+    },
+    {
+      "rentalId": 5,
+      "tenantId": 7,
+      "amount": 95000,
+      "method": "M-Pesa",
+      "transactionId": "VN4GAS0SHA",
+      "status": "Completed",
+      "escrowStatus": "Released",
+      "date": "2026-03-23",
+      "id": 9
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "houseId": 3,
+      "tenantId": 3,
+      "rating": 4,
+      "comment": "Great apartment in Kilimani. Very safe area and close to amenities. The management is responsive. Only downside is parking can be tight during evenings.",
+      "createdAt": "2023-10-15"
+    },
+    {
+      "id": 2,
+      "houseId": 9,
+      "tenantId": 4,
+      "rating": 5,
+      "comment": "Absolutely loved our time in this Nakuru home! Spacious rooms, great compound for the kids. Would highly recommend to families.",
+      "createdAt": "2023-11-20"
+    },
+    {
+      "id": 3,
+      "houseId": 1,
+      "tenantId": 5,
+      "rating": 5,
+      "comment": "Westlands location is unbeatable. The views are stunning and the building management is top-notch. Worth every shilling.",
+      "createdAt": "2023-12-10"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Wambui Kariuki",
+      "role": "Software Engineer, Nairobi",
+      "avatar": "https://i.pravatar.cc/150?img=47",
+      "quote": "RentEasy helped me find my dream apartment in Kilimani in just 3 days. The Fair Rent Estimator saved me from overpaying by 15%!"
+    },
+    {
+      "id": 2,
+      "name": "Omar Farah",
+      "role": "NGO Worker, Garissa",
+      "avatar": "https://i.pravatar.cc/150?img=11",
+      "quote": "Finding a safe, verified home in Garissa used to be impossible. RentEasy changed everything. I moved in within a week of signing up."
+    },
+    {
+      "id": 3,
+      "name": "Njeri Muthoni",
+      "role": "Teacher, Nyeri",
+      "avatar": "https://i.pravatar.cc/150?img=48",
+      "quote": "The RentScore feature helped me understand my tenant profile and I got approved faster. The escrow payment system is brilliant."
+    },
+    {
+      "id": 4,
+      "name": "Kevin Omondi",
+      "role": "Bank Manager, Kisumu",
+      "avatar": "https://i.pravatar.cc/150?img=12",
+      "quote": "I relocated from Nairobi to Kisumu for work and RentEasy had a great selection of lakeside properties. Found a beautiful townhouse in Milimani."
+    },
+    {
+      "id": 5,
+      "name": "Amina Yusuf",
+      "role": "Doctor, Mombasa",
+      "avatar": "https://i.pravatar.cc/150?img=49",
+      "quote": "The map view feature is fantastic — I could see exactly which properties were near Coast General Hospital before booking. Zero agent fees is a game-changer."
+    }
+  ]
+}
