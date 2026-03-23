@@ -1,158 +1,231 @@
 import { useState, useEffect } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Sun, Moon, Menu, X, Home, LogOut, User } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useTheme } from '../../context/ThemeContext'
+import { Menu, X, Home, User, LogOut, Sun, Moon, ChevronDown, Bell } from 'lucide-react'
 
-const tenantLinks = [
-  { to: '/browse', label: 'Browse' },
-  { to: '/my-rentals', label: 'My Rentals' },
-  { to: '/favorites', label: 'Favorites' },
-  { to: '/payments', label: 'Payments' },
-  { to: '/report-issue', label: 'Issues' },
-]
-
-const adminLinks = [
-  { to: '/admin', label: 'Dashboard' },
-  { to: '/admin/properties', label: 'Properties' },
-  { to: '/admin/bookings', label: 'Bookings' },
-  { to: '/admin/tenants', label: 'Tenants' },
-  { to: '/admin/issues', label: 'Issues' },
-  { to: '/admin/payments', label: 'Payments' },
-]
-
-export default function Navbar({ transparent = false }) {
-  const { user, logout } = useAuth()
+export default function Navbar() {
   const { dark, toggle } = useTheme()
+  const { user, logout } = useAuth()
   const navigate = useNavigate()
-  const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+    setUserMenuOpen(false)
+  }
 
-  const links = user?.role === 'admin' ? adminLinks : tenantLinks
-  const isTransparent = transparent && !scrolled
+  const navItems = [
+    { label: 'Home', path: '/' },
+    { label: 'Browse', path: '/browse' },
+    { label: 'How It Works', path: '/#how-it-works' },
+  ]
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-      isTransparent
-        ? 'bg-transparent'
-        : 'bg-white/90 dark:bg-[#0B0B0C]/90 backdrop-blur-md border-b border-gray-200 dark:border-[#2A2A2A]'
-    }`}>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0A0A0B]/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center">
-              <Home size={16} color="white" />
+          <Link to="/" className="flex items-center">
+            <div className="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center mr-2">
+              <Home size={18} color="white" />
             </div>
-            <span className={`font-display font-bold text-xl ${isTransparent ? 'text-white' : 'text-gray-900 dark:text-white'}`}>
-              RentEasy
-            </span>
+            <span className="font-display font-bold text-gray-900 dark:text-white text-xl">RentEasy</span>
           </Link>
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-1">
-            {links.map(l => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                end={l.to === '/admin'}
-                className={({ isActive }) =>
-                  `px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 ${
-                    isActive
-                      ? 'bg-brand-500 text-white'
-                      : isTransparent
-                        ? 'text-white/80 hover:text-white hover:bg-white/10'
-                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#2A2A2A]'
-                  }`
-                }
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.path}
+                className="text-gray-600 dark:text-gray-300 hover:text-brand-500 transition-colors text-sm font-medium"
               >
-                {l.label}
-              </NavLink>
+                {item.label}
+              </Link>
             ))}
           </div>
 
-          {/* Right Side */}
-          <div className="flex items-center gap-2">
+          {/* Desktop Right Side */}
+          <div className="hidden md:flex items-center space-x-3">
             <button
               onClick={toggle}
-              className={`p-2 rounded-lg transition-all duration-150 ${
-                isTransparent
-                  ? 'text-white hover:bg-white/10'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#2A2A2A]'
-              }`}
+              className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
-              {dark ? <Sun size={18} /> : <Moon size={18} />}
+              {dark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
             {user ? (
-              <div className="hidden md:flex items-center gap-2">
-                <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full object-cover" onError={e => e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=22c55e&color=fff`} />
-                <span className={`text-sm font-medium ${isTransparent ? 'text-white' : 'text-gray-700 dark:text-gray-300'}`}>{user.name.split(' ')[0]}</span>
-                <button onClick={() => { logout(); navigate('/') }} className="p-2 text-gray-400 hover:text-red-500 transition-colors">
-                  <LogOut size={16} />
+              // Logged in user menu
+              <div className="relative">
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <div className="w-8 h-8 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center">
+                    <User size={16} className="text-brand-600 dark:text-brand-400" />
+                  </div>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    {user.name?.split(' ')[0] || 'User'}
+                  </span>
+                  <ChevronDown size={16} className="text-gray-500" />
                 </button>
+
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-[#1A1A1A] rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
+                    {user.role === 'tenant' && (
+                      <>
+                        <Link
+                          to="/my-rentals"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                        >
+                          My Rentals
+                        </Link>
+                        <Link
+                          to="/favorites"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                        >
+                          Favorites
+                        </Link>
+                      </>
+                    )}
+                    {user.role === 'admin' && (
+                      <Link
+                        to="/admin"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      >
+                        Admin Dashboard
+                      </Link>
+                    )}
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
+                    >
+                      <LogOut size={14} /> Sign Out
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
-              <div className="hidden md:flex items-center gap-2">
-                <Link to="/login" className={`text-sm font-medium px-3 py-1.5 rounded-lg transition-all ${isTransparent ? 'text-white hover:bg-white/10' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2A2A2A]'}`}>
-                  Login
+              // Logged out buttons
+              <>
+                <Link
+                  to="/login"
+                  className="text-gray-600 dark:text-gray-300 hover:text-brand-500 transition-colors text-sm font-medium"
+                >
+                  Sign In
                 </Link>
-                <Link to="/register" className="text-sm font-semibold px-3 py-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-white transition-all">
-                  Sign Up
+                <Link
+                  to="/register"
+                  className="bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                >
+                  Get Started
                 </Link>
-              </div>
+              </>
             )}
-
-            <button onClick={() => setOpen(o => !o)} className={`md:hidden p-2 rounded-lg ${isTransparent ? 'text-white' : 'text-gray-600 dark:text-gray-400'}`}>
-              {open ? <X size={20} /> : <Menu size={20} />}
-            </button>
           </div>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md:hidden bg-white dark:bg-[#1A1A1A] border-b border-gray-200 dark:border-[#2A2A2A] px-4 pb-4"
-          >
-            <div className="flex flex-col gap-1 pt-2">
-              {links.map(l => (
-                <NavLink
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setOpen(false)}
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg text-sm font-medium ${isActive ? 'bg-brand-500 text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2A2A2A]'}`
-                  }
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white dark:bg-[#0A0A0B] border-t border-gray-200 dark:border-gray-800">
+          <div className="px-4 pt-2 pb-4 space-y-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-brand-500 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+              >
+                {item.label}
+              </Link>
+            ))}
+            
+            <button
+              onClick={toggle}
+              className="w-full flex items-center gap-2 px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-brand-500 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+            >
+              {dark ? <Sun size={18} /> : <Moon size={18} />}
+              <span>{dark ? 'Light Mode' : 'Dark Mode'}</span>
+            </button>
+
+            {user ? (
+              <>
+                <div className="border-t border-gray-200 dark:border-gray-800 pt-2 mt-2">
+                  <div className="px-3 py-2 text-sm text-gray-500">Signed in as {user.name}</div>
+                  {user.role === 'tenant' && (
+                    <>
+                      <Link
+                        to="/my-rentals"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-brand-500 rounded-lg"
+                      >
+                        My Rentals
+                      </Link>
+                      <Link
+                        to="/favorites"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-brand-500 rounded-lg"
+                      >
+                        Favorites
+                      </Link>
+                    </>
+                  )}
+                  {user.role === 'admin' && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-brand-500 rounded-lg"
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
+                  <button
+                    onClick={() => {
+                      handleLogout()
+                      setMobileMenuOpen(false)
+                    }}
+                    className="w-full flex items-center gap-2 px-3 py-2 text-red-600 hover:bg-gray-50 rounded-lg"
+                  >
+                    <LogOut size={18} /> Sign Out
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="pt-4 space-y-2 border-t border-gray-200 dark:border-gray-800 mt-2">
+                <Link
+                  to="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full px-3 py-2 text-center text-gray-600 dark:text-gray-300 hover:text-brand-500 rounded-lg"
                 >
-                  {l.label}
-                </NavLink>
-              ))}
-              {user ? (
-                <button onClick={() => { logout(); navigate('/'); setOpen(false) }} className="flex items-center gap-2 px-3 py-2 text-sm text-red-500 font-medium">
-                  <LogOut size={16} /> Logout
-                </button>
-              ) : (
-                <>
-                  <Link to="/login" onClick={() => setOpen(false)} className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300">Login</Link>
-                  <Link to="/register" onClick={() => setOpen(false)} className="px-3 py-2 text-sm font-semibold bg-brand-500 text-white rounded-lg text-center">Sign Up</Link>
-                </>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full bg-brand-500 text-white px-3 py-2 rounded-lg text-center font-medium"
+                >
+                  Get Started
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   )
 }

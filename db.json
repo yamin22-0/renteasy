@@ -302,7 +302,6 @@
       "dateAdded": "2024-02-12"
     },
     {
-      "id": 8,
       "title": "Budget 1BR in Kondele",
       "description": "Affordable one-bedroom unit in Kondele, Kisumu. Clean, safe, and well-maintained. Walking distance to market and public transport. Ideal for singles and young couples.",
       "price": 12000,
@@ -311,7 +310,7 @@
       "bathrooms": 1,
       "county": "Kisumu",
       "location": "Kondele, Kisumu",
-      "status": "Available",
+      "status": "Rented",
       "verified": false,
       "popular": false,
       "lat": -0.1027,
@@ -329,7 +328,8 @@
         "Common Area"
       ],
       "rating": 4.1,
-      "dateAdded": "2024-02-15"
+      "dateAdded": "2024-02-15",
+      "id": 8
     },
     {
       "id": 9,
@@ -1140,6 +1140,17 @@
       "status": "active",
       "renewals": 0,
       "id": 7
+    },
+    {
+      "tenantId": 7,
+      "houseId": 8,
+      "bookingId": 7,
+      "startDate": "2026-03-24",
+      "endDate": "2027-03-24",
+      "price": 12000,
+      "status": "active",
+      "renewals": 0,
+      "id": 8
     }
   ],
   "favorites": [
@@ -1220,6 +1231,18 @@
       "status": "Resolved",
       "adminNote": "Electrician replaced faulty socket - resolved 25 Jan",
       "createdAt": "2024-01-22T09:15:00Z"
+    },
+    {
+      "title": "Leaking roof",
+      "description": "The roof has hole in it and has been leaking for a while now",
+      "category": "Plumbing",
+      "priority": "High",
+      "houseId": 5,
+      "tenantId": 7,
+      "status": "In Progress",
+      "adminNote": null,
+      "createdAt": "2026-03-23T22:52:09.394Z",
+      "id": 4
     }
   ],
   "bookings": [
@@ -1288,7 +1311,7 @@
       "tenantId": 7,
       "moveInDate": "2026-03-24",
       "price": 12000,
-      "status": "Pending",
+      "status": "Approved",
       "rejectionNote": null,
       "createdAt": "2026-03-23T21:05:40.843Z",
       "id": 7
