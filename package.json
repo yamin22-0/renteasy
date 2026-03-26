@@ -2,12 +2,15 @@
   "name": "renteasy",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
-    "dev": "vite", 
-    "server": "json-server db.json --port 3001 --watch", 
-    "start": "json-server --watch db.json --port $PORT --host 0.0.0.0", 
-    "backend": "node server.js", 
-    "build": "vite build", 
+    "dev": "vite",
+    "server": "json-server db.json --port 3001 --watch",
+    "start": "json-server --watch db.json --port $PORT --host 0.0.0.0",
+    "backend": "node server.js",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -35,6 +38,6 @@
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
-    "vite": "^5.0.11"
+    "vite": "^5.4.0"
   }
 }
