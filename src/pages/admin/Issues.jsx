@@ -23,7 +23,12 @@ export default function AdminIssues() {
   const filtered = tab === 'All' ? issues : issues.filter(i => i.status === tab)
 
   const update = (id, status, adminNote) => {
-    editMutation.mutate({ id, status, ...(adminNote !== undefined ? { adminNote } : {}) }, {
+    const existing = issues.find(i => i.id === id);
+    // Ensure we send the WHOLE object to avoid wiping out fields not sent in PATCH if server is strict
+    const payload = { ...existing, status };
+    if (adminNote !== undefined) payload.adminNote = adminNote;
+
+    editMutation.mutate(payload, {
       onSuccess: () => toast.success(`Issue marked as ${status}`)
     })
   }
@@ -62,21 +67,23 @@ export default function AdminIssues() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-gray-100 dark:bg-[#2A2A2A] rounded-xl p-1 w-fit">
-        {TABS.map(t => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${tab === t ? 'bg-white dark:bg-[#1A1A1A] text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
-          >
-            {t}
-            {t !== 'All' && (
-              <span className="ml-1.5 text-xs text-gray-400">
-                {issues.filter(i => i.status === t).length}
-              </span>
-            )}
-          </button>
-        ))}
+      <div className="overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
+        <div className="flex gap-1 bg-gray-100 dark:bg-[#2A2A2A] rounded-xl p-1 w-fit whitespace-nowrap">
+          {TABS.map(t => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${tab === t ? 'bg-white dark:bg-[#1A1A1A] text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
+            >
+              {t}
+              {t !== 'All' && (
+                <span className="ml-1.5 text-xs text-gray-400">
+                  {issues.filter(i => i.status === t).length}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
       {isLoading ? (

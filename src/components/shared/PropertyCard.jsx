@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { MapPin, Bed, Bath, Star, Heart, BadgeCheck, TrendingUp } from 'lucide-react'
+import { MapPin, Bed, Bath, Star, Heart, BadgeCheck, TrendingUp, CheckCircle, XCircle, Clock } from 'lucide-react'
 import { formatKES } from '../../utils/formatters'
 import { useAuth } from '../../context/AuthContext'
 import { useFavorites } from '../../hooks/useApi'
@@ -20,6 +20,40 @@ export default function PropertyCard({ house }) {
     })
   }
 
+  // Get status badge with PascalCase
+  const getStatusBadge = () => {
+    const status = house.status?.toLowerCase() || 'available'
+    
+    switch (status) {
+      case 'available':
+        return {
+          text: 'Available',
+          color: 'bg-green-500',
+          icon: <CheckCircle size={12} className="mr-1" />
+        }
+      case 'rented':
+        return {
+          text: 'Rented',
+          color: 'bg-red-500',
+          icon: <XCircle size={12} className="mr-1" />
+        }
+      case 'Pending':
+        return {
+          text: 'Pending', // Assuming pending is always PascalCase
+          color: 'bg-amber-500',
+          icon: <Clock size={12} className="mr-1" />
+        }
+      default:
+        return {
+          text: house.status || 'Available',
+          color: 'bg-gray-500',
+          icon: null
+        }
+    }
+  }
+
+  const statusBadge = getStatusBadge()
+
   return (
     <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.15 }}>
       <Link to={`/house/${house.id}`} className="card block overflow-hidden group">
@@ -33,12 +67,10 @@ export default function PropertyCard({ house }) {
             onError={e => { e.target.src = 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=60' }}
           />
           <div className="absolute top-3 left-3 flex gap-1.5">
-            <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
-              house.status === 'Available'
-                ? 'bg-brand-500 text-white'
-                : 'bg-gray-500 text-white'
-            }`}>
-              {house.status}
+            {/* Status Badge */}
+            <span className={`text-xs font-semibold px-2 py-1 rounded-full ${statusBadge.color} text-white flex items-center gap-1`}>
+              {statusBadge.icon}
+              {statusBadge.text}
             </span>
             {house.popular && (
               <span className="text-xs font-semibold px-2 py-1 rounded-full bg-amber-500 text-white flex items-center gap-1">
@@ -77,7 +109,7 @@ export default function PropertyCard({ house }) {
             <span className="flex items-center gap-1"><Bath size={11} /> {house.bathrooms} bath</span>
             <span className="flex items-center gap-1 ml-auto">
               <Star size={11} className="fill-amber-400 text-amber-400" />
-              <span>{house.rating}</span>
+              <span>{house.rating || '4.5'}</span>
             </span>
           </div>
 

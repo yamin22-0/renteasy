@@ -69,11 +69,30 @@
       "avatar": "https://ui-avatars.com/api/?name=Binyamin%20Ahmed&background=22c55e&color=fff&size=128",
       "joinDate": "2026-03-23",
       "id": 7
+    },
+    {
+      "name": "Binyamin Ahmed",
+      "email": "binyamin@gmail.com",
+      "password": "12345678",
+      "phone": "0723456678",
+      "role": "tenant",
+      "avatar": "https://ui-avatars.com/api/?name=Binyamin%20Ahmed&background=22c55e&color=fff&size=128",
+      "joinDate": "2026-03-24",
+      "id": 8
+    },
+    {
+      "name": "binyamin mohamed",
+      "email": "binyaminn@gmail.com",
+      "password": "12345678",
+      "phone": "0723456997",
+      "role": "tenant",
+      "avatar": "https://ui-avatars.com/api/?name=binyamin%20mohamed&background=22c55e&color=fff&size=128",
+      "joinDate": "2026-03-25",
+      "id": 9
     }
   ],
   "houses": [
     {
-      "id": 1,
       "title": "Luxury 3BR Apartment in Westlands",
       "description": "A stunning modern apartment in the heart of Westlands with panoramic city views. Features high-end finishes, a fully fitted kitchen, and access to a rooftop pool. Walking distance to major malls and business hubs.",
       "price": 85000,
@@ -82,7 +101,7 @@
       "bathrooms": 2,
       "county": "Nairobi",
       "location": "Westlands, Nairobi",
-      "status": "Available",
+      "status": "Rented",
       "verified": true,
       "popular": true,
       "lat": -1.2641,
@@ -104,10 +123,10 @@
         "DSTV"
       ],
       "rating": 4.8,
-      "dateAdded": "2024-01-10"
+      "dateAdded": "2024-01-10",
+      "id": 1
     },
     {
-      "id": 2,
       "title": "Spacious 2BR Bungalow in Karen",
       "description": "Beautiful bungalow set in a serene Karen neighborhood with lush gardens. Perfect for families seeking tranquility while remaining close to the city. Features a large compound ideal for children.",
       "price": 65000,
@@ -116,7 +135,7 @@
       "bathrooms": 2,
       "county": "Nairobi",
       "location": "Karen, Nairobi",
-      "status": "Available",
+      "status": "Rented",
       "verified": true,
       "popular": false,
       "lat": -1.3186,
@@ -136,7 +155,8 @@
         "Staff Quarters"
       ],
       "rating": 4.6,
-      "dateAdded": "2024-01-15"
+      "dateAdded": "2024-01-15",
+      "id": 2
     },
     {
       "id": 3,
@@ -205,7 +225,6 @@
       "dateAdded": "2024-02-01"
     },
     {
-      "id": 5,
       "title": "Beachfront 3BR Apartment in Nyali",
       "description": "Wake up to ocean views every morning in this stunning beachfront apartment. Features direct beach access, a spacious balcony overlooking the Indian Ocean, and resort-like facilities.",
       "price": 95000,
@@ -236,7 +255,8 @@
         "Backup Power"
       ],
       "rating": 4.7,
-      "dateAdded": "2024-02-05"
+      "dateAdded": "2024-02-05",
+      "id": 5
     },
     {
       "id": 6,
@@ -746,7 +766,6 @@
       "dateAdded": "2024-03-25"
     },
     {
-      "id": 22,
       "title": "2BR Bungalow in Rongai",
       "description": "Charming bungalow in quiet Rongai with a large compound. Perfect for families with children. Easy access to Nairobi via Rongai route matatus.",
       "price": 32000,
@@ -755,7 +774,7 @@
       "bathrooms": 1,
       "county": "Kajiado",
       "location": "Rongai, Kajiado",
-      "status": "Rented",
+      "status": "Available",
       "verified": false,
       "popular": false,
       "lat": -1.3944,
@@ -774,7 +793,8 @@
         "Borehole"
       ],
       "rating": 4.2,
-      "dateAdded": "2024-04-01"
+      "dateAdded": "2024-04-01",
+      "id": 22
     },
     {
       "id": 23,
@@ -1105,7 +1125,7 @@
       "startDate": "2023-10-01",
       "endDate": "2024-04-30",
       "price": 32000,
-      "status": "active",
+      "status": "Ended",
       "renewals": 0
     },
     {
@@ -1114,7 +1134,7 @@
       "price": 95000,
       "startDate": "2026-03-23",
       "endDate": "2027-03-23",
-      "status": "active",
+      "status": "Ended",
       "renewals": 0,
       "createdAt": "2026-03-23T20:14:43.190Z",
       "id": 5
@@ -1151,6 +1171,28 @@
       "status": "active",
       "renewals": 0,
       "id": 8
+    },
+    {
+      "tenantId": 7,
+      "houseId": 1,
+      "bookingId": 8,
+      "startDate": "2026-03-24",
+      "endDate": "2027-03-24",
+      "price": 85000,
+      "status": "active",
+      "renewals": 0,
+      "id": 9
+    },
+    {
+      "tenantId": 9,
+      "houseId": 2,
+      "bookingId": 9,
+      "startDate": "2026-03-25",
+      "endDate": "2027-03-25",
+      "price": 65000,
+      "status": "active",
+      "renewals": 0,
+      "id": 10
     }
   ],
   "favorites": [
@@ -1193,6 +1235,11 @@
       "tenantId": 7,
       "houseId": 5,
       "id": 8
+    },
+    {
+      "tenantId": 9,
+      "houseId": 1,
+      "id": 9
     }
   ],
   "issues": [
@@ -1240,7 +1287,7 @@
       "houseId": 5,
       "tenantId": 7,
       "status": "In Progress",
-      "adminNote": null,
+      "adminNote": "A plumber will arrive on tuesday",
       "createdAt": "2026-03-23T22:52:09.394Z",
       "id": 4
     }
@@ -1315,6 +1362,26 @@
       "rejectionNote": null,
       "createdAt": "2026-03-23T21:05:40.843Z",
       "id": 7
+    },
+    {
+      "houseId": 1,
+      "tenantId": 7,
+      "moveInDate": "2026-03-24",
+      "price": 85000,
+      "status": "Approved",
+      "rejectionNote": null,
+      "createdAt": "2026-03-24T06:50:59.428Z",
+      "id": 8
+    },
+    {
+      "houseId": 2,
+      "tenantId": 9,
+      "moveInDate": "2026-03-25",
+      "price": 65000,
+      "status": "Approved",
+      "rejectionNote": null,
+      "createdAt": "2026-03-25T20:09:19.393Z",
+      "id": 9
     }
   ],
   "payments": [
@@ -1479,6 +1546,48 @@
       "role": "Doctor, Mombasa",
       "avatar": "https://i.pravatar.cc/150?img=49",
       "quote": "The map view feature is fantastic — I could see exactly which properties were near Coast General Hospital before booking. Zero agent fees is a game-changer."
+    }
+  ],
+  "moveOutRequests": [
+    {
+      "id": 1,
+      "rentalId": 4,
+      "houseId": 22,
+      "tenantId": 6,
+      "moveOutDate": "2024-05-30",
+      "reason": "Relocating to another city",
+      "inspectionRequested": true,
+      "forwardingAddress": "123 New Road, Nakuru",
+      "status": "approved",
+      "requestDate": "2024-03-25T10:00:00Z",
+      "adminNote": "Ok i'll send someone to view the house check if there's any issues then you can move out.\n",
+      "processedDate": "2026-03-26T12:19:56.550Z"
+    },
+    {
+      "rentalId": 5,
+      "houseId": 5,
+      "tenantId": 7,
+      "moveOutDate": "2026-06-01",
+      "reason": "Job change",
+      "inspectionRequest": true,
+      "forwardingAddress": "",
+      "status": "approved",
+      "requestDate": "2026-03-26T12:20:25.293Z",
+      "id": 2,
+      "adminNote": "",
+      "processedDate": "2026-03-26T12:20:46.595Z"
+    }
+  ],
+  "renewalRequests": [
+    {
+      "id": 1,
+      "rentalId": 3,
+      "houseId": 17,
+      "tenantId": 5,
+      "duration": 12,
+      "suggestedRent": 35000,
+      "status": "pending",
+      "requestDate": "2024-03-25T11:00:00Z"
     }
   ]
 }

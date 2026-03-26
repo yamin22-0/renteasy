@@ -30,6 +30,7 @@ const AdminBookings = lazy(() => import('./pages/admin/Bookings'))
 const AdminTenants = lazy(() => import('./pages/admin/Tenants'))
 const AdminIssues = lazy(() => import('./pages/admin/Issues'))
 const AdminPayments = lazy(() => import('./pages/admin/Payments'))
+const AdminLeaseRequests = lazy(() => import('./pages/admin/MoveOutRequest'))
 
 // Redirect component based on role
 function RoleBasedRedirect() {
@@ -52,7 +53,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Suspense fallback={<PageLoader />}>
             <Routes>
               {/* Public routes - no auth required */}
@@ -92,6 +93,7 @@ export default function App() {
                   <Route path="/admin/tenants" element={<AdminTenants />} />
                   <Route path="/admin/issues" element={<AdminIssues />} />
                   <Route path="/admin/payments" element={<AdminPayments />} />
+                  <Route path="/admin/lease-requests" element={<AdminLeaseRequests />} />
                 </Route>
               </Route>
 

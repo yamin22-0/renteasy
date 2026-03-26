@@ -1,123 +1,159 @@
 import { useState } from 'react'
-import { Outlet, NavLink, useNavigate } from 'react-router-dom'
+import { Outlet, NavLink, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import {
-  LayoutDashboard, Building2, CalendarCheck, Users, AlertTriangle,
-  CreditCard, ChevronLeft, ChevronRight, Home, LogOut, Sun, Moon, Menu, X
+import { 
+  LayoutDashboard, Home, BookOpen, Users, 
+  AlertCircle, CreditCard, DoorOpen, Menu, X, LogOut 
 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
-import { useTheme } from '../../context/ThemeContext'
+import { useMoveOutRequests, useRenewalRequests } from '../../hooks/useApi'
 
-const NAV = [
-  { to: '/admin', icon: LayoutDashboard, label: 'Dashboard', end: true },
-  { to: '/admin/properties', icon: Building2, label: 'Properties' },
-  { to: '/admin/bookings', icon: CalendarCheck, label: 'Bookings' },
-  { to: '/admin/tenants', icon: Users, label: 'Tenants' },
-  { to: '/admin/issues', icon: AlertTriangle, label: 'Issues' },
-  { to: '/admin/payments', icon: CreditCard, label: 'Payments' },
+const NAV_ITEMS = [
+  { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
+  { label: 'Properties', path: '/admin/properties', icon: Home },
+  { label: 'Bookings', path: '/admin/bookings', icon: BookOpen },
+  { label: 'Tenants', path: '/admin/tenants', icon: Users },
+  { label: 'Lease Requests', path: '/admin/lease-requests', icon: DoorOpen, isLease: true },
+  { label: 'Issues', path: '/admin/issues', icon: AlertCircle },
+  { label: 'Payments', path: '/admin/payments', icon: CreditCard },
 ]
 
 export default function AdminLayout() {
-  const { user, logout } = useAuth()
-  const { dark, toggle } = useTheme()
-  const navigate = useNavigate()
-  const [collapsed, setCollapsed] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-
-  const SidebarContent = ({ mobile = false }) => (
-    <div className="flex flex-col h-full">
-      {/* Logo */}
-      <div className={`flex items-center gap-2 px-4 py-5 border-b border-gray-100 dark:border-[#2A2A2A] ${collapsed && !mobile ? 'justify-center' : ''}`}>
-        <div className="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center shrink-0">
-          <Home size={15} color="white" />
-        </div>
-        {(!collapsed || mobile) && (
-          <span className="font-display font-bold text-lg text-gray-900 dark:text-white">RentEasy</span>
-        )}
-      </div>
-
-      {/* Nav */}
-      <nav className="flex-1 p-3 space-y-1">
-        {NAV.map(item => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            onClick={() => mobile && setMobileOpen(false)}
-            className={({ isActive }) => isActive ? `sidebar-link-active ${collapsed && !mobile ? 'justify-center px-2' : ''}` : `sidebar-link ${collapsed && !mobile ? 'justify-center px-2' : ''}`}
-          >
-            <item.icon size={18} className="shrink-0" />
-            {(!collapsed || mobile) && <span>{item.label}</span>}
-          </NavLink>
-        ))}
-      </nav>
-
-      {/* User */}
-      <div className={`p-3 border-t border-gray-100 dark:border-[#2A2A2A] ${collapsed && !mobile ? 'flex flex-col items-center gap-2' : 'flex items-center gap-2'}`}>
-        {(!collapsed || mobile) && (
-          <>
-            <img src={user?.avatar} alt={user?.name} className="w-8 h-8 rounded-full object-cover shrink-0" onError={e => e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'A')}&background=22c55e&color=fff`} />
-            <div className="flex-1 min-w-0">
-              <div className="text-xs font-semibold text-gray-900 dark:text-white truncate">{user?.name}</div>
-              <div className="text-xs text-gray-400 truncate">Admin</div>
-            </div>
-          </>
-        )}
-        <button onClick={toggle} className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#2A2A2A] transition-all">
-          {dark ? <Sun size={15} /> : <Moon size={15} />}
-        </button>
-        <button onClick={() => { logout(); navigate('/') }} className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all">
-          <LogOut size={15} />
-        </button>
-      </div>
-    </div>
-  )
+  const { logout } = useAuth()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
+  // Fetch pending counts for the notification badge
+  const { data: moveOuts = [] } = useMoveOutRequests({ status: 'pending' })
+  const { data: renewals = [] } = useRenewalRequests({ status: 'pending' })
+  const totalPendingLease = moveOuts.length + renewals.length
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-[#0B0B0C] overflow-hidden">
-      {/* Desktop Sidebar */}
-      <motion.aside
-        animate={{ width: collapsed ? 64 : 240 }}
-        transition={{ duration: 0.2 }}
-        className="hidden lg:flex flex-col bg-white dark:bg-[#1A1A1A] border-r border-gray-100 dark:border-[#2A2A2A] relative overflow-hidden"
-      >
-        <button
-          onClick={() => setCollapsed(c => !c)}
-          className="absolute top-5 -right-3 z-10 w-6 h-6 rounded-full bg-white dark:bg-[#2A2A2A] border border-gray-200 dark:border-[#3A3A3A] flex items-center justify-center shadow-sm hover:bg-gray-50 dark:hover:bg-[#3A3A3A] transition-all"
-        >
-          {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
-        </button>
-        <SidebarContent />
-      </motion.aside>
-
-      {/* Mobile Sidebar */}
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0B0B0C] flex">
+      {/* Mobile Sidebar Overlay */}
       <AnimatePresence>
-        {mobileOpen && (
+        {isMobileMenuOpen && (
           <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setMobileOpen(false)} />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/50 z-50 lg:hidden backdrop-blur-sm"
+            />
             <motion.aside
-              initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }}
-              transition={{ type: 'spring', damping: 25 }}
-              className="fixed left-0 top-0 bottom-0 z-50 w-64 bg-white dark:bg-[#1A1A1A] border-r border-gray-100 dark:border-[#2A2A2A] lg:hidden"
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 left-0 w-72 bg-white dark:bg-[#1A1A1A] z-50 lg:hidden flex flex-col shadow-2xl"
             >
-              <SidebarContent mobile />
+              <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                <Link to="/admin" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+                  <div className="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center text-white">
+                    <Home size={18} />
+                  </div>
+                  <span className="font-display font-bold text-xl text-gray-900 dark:text-white">RentEasy</span>
+                </Link>
+                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-gray-500">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+                {NAV_ITEMS.map((item) => (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={({ isActive }) => `
+                      flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all
+                      ${isActive ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' : 'text-gray-500'}
+                    `}
+                  >
+                    <div className="flex items-center gap-3">
+                      <item.icon size={18} />
+                      {item.label}
+                    </div>
+                  </NavLink>
+                ))}
+              </nav>
+
+              <div className="p-4 border-t border-gray-100 dark:border-gray-800">
+                <button onClick={logout} className="flex items-center gap-3 w-full px-4 py-3 text-red-500 font-medium"><LogOut size={18} /> Sign Out</button>
+              </div>
             </motion.aside>
           </>
         )}
       </AnimatePresence>
 
-      {/* Main */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Mobile top bar */}
-        <div className="lg:hidden flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1A1A1A] border-b border-gray-100 dark:border-[#2A2A2A]">
-          <button onClick={() => setMobileOpen(true)} className="p-2 rounded-lg text-gray-500">
-            <Menu size={20} />
-          </button>
-          <span className="font-display font-bold text-gray-900 dark:text-white">RentEasy Admin</span>
+      {/* Sidebar - Desktop */}
+      <aside className="hidden lg:flex flex-col w-64 bg-white dark:bg-[#1A1A1A] border-r border-gray-200 dark:border-gray-800 sticky top-0 h-screen">
+        <div className="p-6 border-b border-gray-100 dark:border-gray-800">
+          <Link to="/admin" className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center text-white">
+              <Home size={18} />
+            </div>
+            <span className="font-display font-bold text-xl text-gray-900 dark:text-white">RentEasy Admin</span>
+          </Link>
         </div>
 
-        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
-          <Outlet />
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+          {NAV_ITEMS.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.path === '/admin'}
+              className={({ isActive }) => `
+                flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-all
+                ${isActive 
+                  ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/20' 
+                  : 'text-gray-500 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800'}
+              `}
+            >
+              <div className="flex items-center gap-3">
+                <item.icon size={18} />
+                {item.label}
+              </div>
+              {item.isLease && totalPendingLease > 0 && (
+                <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                  {totalPendingLease}
+                </span>
+              )}
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="p-4 border-t border-gray-100 dark:border-gray-800">
+          <button 
+            onClick={logout}
+            className="flex items-center gap-3 w-full px-4 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all"
+          >
+            <LogOut size={18} />
+            Sign Out
+          </button>
+        </div>
+      </aside>
+
+      {/* Mobile Header */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <header className="lg:hidden bg-white dark:bg-[#1A1A1A] border-b border-gray-200 dark:border-gray-800 px-4 py-3 flex items-center justify-between sticky top-0 z-40">
+          <button 
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="p-2 -ml-2 text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          >
+            <Menu size={24} />
+          </button>
+          <span className="font-bold dark:text-white">Admin Panel</span>
+          <div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 font-bold">
+            A
+          </div>
+        </header>
+
+        {/* Main Content Area */}
+        <main className="flex-1 p-4 lg:p-8 overflow-y-auto">
+          <div className="max-w-6xl mx-auto">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

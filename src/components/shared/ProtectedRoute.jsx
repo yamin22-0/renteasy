@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import PageLoader from './PageLoader'
+import toast from 'react-hot-toast'
 
 export default function ProtectedRoute({ role }) {
   const { user, loading } = useAuth()
@@ -14,14 +15,9 @@ export default function ProtectedRoute({ role }) {
   }
 
   if (role && user.role !== role) {
-    // Wrong role - redirect to appropriate dashboard
-    if (user.role === 'admin') {
-      return <Navigate to="/admin" replace />
-    }
-    if (user.role === 'tenant') {
-      return <Navigate to="/my-rentals" replace />
-    }
-    return <Navigate to="/" replace />
+    const redirectPath = user.role === 'admin' ? '/admin' : '/browse';
+    toast.error('Unauthorized access');
+    return <Navigate to={redirectPath} replace />;
   }
 
   return <Outlet />

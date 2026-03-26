@@ -1,10 +1,31 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { motion } from 'framer-motion'
-import { ChevronRight, ChevronLeft, Check } from 'lucide-react'
+import { ChevronRight, ChevronLeft, Check, AlertCircle } from 'lucide-react'
 import { useHouseDetail, useHouses } from '../../hooks/useApi'
 import { COUNTIES } from '../../data/counties'
 import toast from 'react-hot-toast'
+
+const schema = z.object({
+  title: z.string().min(5, 'Title must be at least 5 characters').max(100, 'Title cannot exceed 100 characters'),
+  description: z.string().min(20, 'Description must be at least 20 characters'),
+  price: z.coerce.number().min(1000, 'Price must be at least KES 1,000'),
+  type: z.string().min(1, 'Property type is required'),
+  location: z.string().min(1, 'Location is required'),
+  county: z.string().min(1, 'County is required'),
+  bedrooms: z.coerce.number().int().min(1, 'Bedrooms must be at least 1'),
+  bathrooms: z.coerce.number().int().min(1, 'Bathrooms must be at least 1'),
+  lat: z.coerce.number().optional().nullable(),
+  lng: z.coerce.number().optional().nullable(),
+  images: z.array(z.string().url('Must be a valid URL').or(z.literal(''))).refine(arr => arr.filter(Boolean).length > 0, { message: 'At least one image URL is required' }),
+  amenities: z.array(z.string()).optional(),
+  status: z.enum(['Available', 'Rented']),
+  verified: z.boolean(),
+  popular: z.boolean(),
+});
 
 const TYPES = ['Apartment', 'House', 'Bungalow', 'Villa', 'Townhouse', 'Studio', 'Bedsitter', 'Maisonette', 'Penthouse', 'Mansion', 'Cottage']
 const AMENITIES_LIST = ['WiFi', 'Parking', 'Swimming Pool', 'Gym', 'Security', 'Balcony', 'DSTV', 'Garden', 'Borehole', 'Solar', 'Staff Quarters', 'Backup Generator', 'Lift', 'Smart Home', 'CCTV', 'Rooftop Terrace']
@@ -18,45 +39,50 @@ export default function PropertyForm() {
   const { data: house } = useHouseDetail(id)
   const { addMutation, editMutation } = useHouses({})
   const [step, setStep] = useState(0)
+  
+  const { register, handleSubmit, setValue, watch, formState: { errors, isValid } } = useForm({
+    resolver: zodResolver(schema),
+    mode: 'onChange',
+    defaultValues: { 
+      title: '', description: '', price: 0, type: 'Apartment', location: '', county: 'Nairobi',
+      bedrooms: 1, bathrooms: 1, amenities: [], status: 'Available', verified: false, popular: false,
+      lat: null, lng: null, images: ['', '', '', '', ''],
+    }
+  });
 
-  const [form, setForm] = useState({
-    title: '', description: '', price: '', type: 'Apartment', location: '', county: 'Nairobi',
-    bedrooms: 1, bathrooms: 1, amenities: [], status: 'Available', verified: false, popular: false,
-    lat: '', lng: '', images: ['', '', '', '', ''],
-  })
+  const form = watch(); // Watch all form values for dynamic updates and summary
 
   useEffect(() => {
     if (house && isEdit) {
-      setForm({
-        ...house,
-        price: String(house.price),
-        lat: String(house.lat || ''),
-        lng: String(house.lng || ''),
-        images: [...(house.images || []), '', '', '', '', ''].slice(0, 5),
-        amenities: house.amenities || [],
-      })
+      // Set form values for react-hook-form
+      for (const key in house) {
+        if (key === 'price' || key === 'bedrooms' || key === 'bathrooms') {
+          setValue(key, Number(house[key]));
+        } else if (key === 'lat' || key === 'lng') {
+          setValue(key, house[key] === null ? null : Number(house[key]));
+        } else if (key === 'images') {
+          setValue(key, [...(house.images || []), '', '', '', '', ''].slice(0, 5));
+        } else if (key === 'amenities') {
+          setValue(key, house[key] || []);
+        } else {
+          setValue(key, house[key]);
+        }
+      }
     }
-  }, [house, isEdit])
-
-  const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
+  }, [house, isEdit, setValue]);
 
   const toggleAmenity = (a) => {
-    setForm(f => ({
-      ...f,
-      amenities: f.amenities.includes(a) ? f.amenities.filter(x => x !== a) : [...f.amenities, a],
-    }))
+    const currentAmenities = form.amenities || [];
+    setValue('amenities', currentAmenities.includes(a) ? currentAmenities.filter(x => x !== a) : [...currentAmenities, a]);
   }
 
-  const handleSubmit = async () => {
-    const payload = {
-      ...form,
-      price: Number(form.price),
-      lat: Number(form.lat) || -1.2921,
-      lng: Number(form.lng) || 36.8219,
-      images: form.images.filter(Boolean),
-      bedrooms: Number(form.bedrooms),
-      bathrooms: Number(form.bathrooms),
-    }
+  const onSubmit = async (data) => {
+    const payload = { ...data, 
+      price: Number(data.price), 
+      images: data.images.filter(Boolean),
+      lat: data.lat === null ? -1.2921 : Number(data.lat), // Default if null
+      lng: data.lng === null ? 36.8219 : Number(data.lng), // Default if null
+    };
 
     try {
       if (isEdit) {
@@ -94,55 +120,65 @@ export default function PropertyForm() {
 
       <div className="card p-6">
         {/* Step 1 */}
-        {step === 0 && (
+        <form onSubmit={handleSubmit(onSubmit)}>
+        {step === 0 && ( // Basic Info
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Property Title</label>
-              <input value={form.title} onChange={e => set('title', e.target.value)} placeholder="e.g. Modern 3BR Apartment in Westlands" className="input-field" />
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Property Title</label>
+              <input id="title" {...register('title')} placeholder="e.g. Modern 3BR Apartment in Westlands" className="input-field" />
+              {errors.title && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.title.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Description</label>
-              <textarea value={form.description} onChange={e => set('description', e.target.value)} rows={4} placeholder="Describe the property..." className="input-field resize-none" />
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Description</label>
+              <textarea id="description" {...register('description')} rows={4} placeholder="Describe the property..." className="input-field resize-none" />
+              {errors.description && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.description.message}</p>}
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Monthly Price (KES)</label>
-                <input type="number" value={form.price} onChange={e => set('price', e.target.value)} placeholder="45000" className="input-field font-mono" />
+                <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Monthly Price (KES)</label>
+                <input id="price" type="number" {...register('price')} placeholder="45000" className="input-field font-mono" />
+                {errors.price && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.price.message}</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Property Type</label>
-                <select value={form.type} onChange={e => set('type', e.target.value)} className="input-field">
+                <label htmlFor="type" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Property Type</label>
+                <select id="type" {...register('type')} className="input-field">
                   {TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
+                {errors.type && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.type.message}</p>}
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">County</label>
-                <select value={form.county} onChange={e => set('county', e.target.value)} className="input-field">
+                <label htmlFor="county" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">County</label>
+                <select id="county" {...register('county')} className="input-field">
                   {COUNTIES.map(c => <option key={c} value={c}>{c}</option>)}
                 </select>
+                {errors.county && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.county.message}</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Status</label>
-                <select value={form.status} onChange={e => set('status', e.target.value)} className="input-field">
+                <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Status</label>
+                <select id="status" {...register('status')} className="input-field">
                   <option value="Available">Available</option>
                   <option value="Rented">Rented</option>
                 </select>
+                {errors.status && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.status.message}</p>}
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Full Address / Location</label>
-              <input value={form.location} onChange={e => set('location', e.target.value)} placeholder="e.g. Westlands, Nairobi" className="input-field" />
+              <label htmlFor="location" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Full Address / Location</label>
+              <input id="location" {...register('location')} placeholder="e.g. Westlands, Nairobi" className="input-field" />
+              {errors.location && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.location.message}</p>}
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Latitude</label>
-                <input type="number" value={form.lat} onChange={e => set('lat', e.target.value)} placeholder="-1.2921" className="input-field font-mono" />
+                <label htmlFor="lat" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Latitude</label>
+                <input id="lat" type="number" {...register('lat')} placeholder="-1.2921" className="input-field font-mono" />
+                {errors.lat && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.lat.message}</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Longitude</label>
-                <input type="number" value={form.lng} onChange={e => set('lng', e.target.value)} placeholder="36.8219" className="input-field font-mono" />
+                <label htmlFor="lng" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Longitude</label>
+                <input id="lng" type="number" {...register('lng')} placeholder="36.8219" className="input-field font-mono" />
+                {errors.lng && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.lng.message}</p>}
               </div>
             </div>
           </motion.div>
@@ -153,25 +189,27 @@ export default function PropertyForm() {
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Bedrooms</label>
-                <select value={form.bedrooms} onChange={e => set('bedrooms', e.target.value)} className="input-field">
+                <label htmlFor="bedrooms" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Bedrooms</label>
+                <select id="bedrooms" {...register('bedrooms')} className="input-field">
                   {[1,2,3,4,5,6].map(n => <option key={n} value={n}>{n}</option>)}
                 </select>
+                {errors.bedrooms && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.bedrooms.message}</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Bathrooms</label>
-                <select value={form.bathrooms} onChange={e => set('bathrooms', e.target.value)} className="input-field">
+                <label htmlFor="bathrooms" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Bathrooms</label>
+                <select id="bathrooms" {...register('bathrooms')} className="input-field">
                   {[1,2,3,4,5].map(n => <option key={n} value={n}>{n}</option>)}
                 </select>
+                {errors.bathrooms && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.bathrooms.message}</p>}
               </div>
             </div>
             <div className="flex gap-4">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={form.verified} onChange={e => set('verified', e.target.checked)} className="rounded accent-brand-500" />
+                <input type="checkbox" {...register('verified')} className="rounded accent-brand-500" />
                 <span className="text-sm text-gray-700 dark:text-gray-300">Verified Listing</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={form.popular} onChange={e => set('popular', e.target.checked)} className="rounded accent-brand-500" />
+                <input type="checkbox" {...register('popular')} className="rounded accent-brand-500" />
                 <span className="text-sm text-gray-700 dark:text-gray-300">Popular</span>
               </label>
             </div>
@@ -202,17 +240,13 @@ export default function PropertyForm() {
                 {form.images.map((img, i) => (
                   <input
                     key={i}
-                    value={img}
-                    onChange={e => {
-                      const imgs = [...form.images]
-                      imgs[i] = e.target.value
-                      set('images', imgs)
-                    }}
+                    {...register(`images.${i}`)}
                     placeholder={`Image ${i + 1} URL`}
                     className="input-field text-xs"
                   />
                 ))}
               </div>
+              {errors.images && <p className="text-red-500 text-xs mt-1 flex items-center gap-1"><AlertCircle size={12} />{errors.images.message}</p>}
             </div>
             {form.images.filter(Boolean).length > 0 && (
               <div>
@@ -238,6 +272,7 @@ export default function PropertyForm() {
             </div>
           </motion.div>
         )}
+        </form>
       </div>
 
       {/* Navigation */}
@@ -256,8 +291,8 @@ export default function PropertyForm() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            onClick={handleSubmit}
-            disabled={addMutation.isPending || editMutation.isPending}
+            onClick={handleSubmit(onSubmit)}
+            disabled={!isValid || addMutation.isPending || editMutation.isPending}
             className="btn-primary flex items-center gap-2"
           >
             <Check size={16} /> {isEdit ? 'Save Changes' : 'Add Property'}

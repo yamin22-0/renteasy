@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, X, Clock } from 'lucide-react'
+import { Check, X, Clock, AlertCircle } from 'lucide-react'
 import { useBookings, useHouses, useUsers, useRentals, usePayments, useIssues } from '../../hooks/useApi'
 import { formatKES, formatDate, calculateRentScore } from '../../utils/formatters'
 import toast from 'react-hot-toast'
@@ -30,7 +30,7 @@ function RejectModal({ onClose, onConfirm }) {
 
 export default function AdminBookings() {
   const { data: bookings = [], isLoading, editMutation } = useBookings({})
-  const { data: houses = [], editMutation: editHouse } = useHouses({})
+  const { data: houses = [], editMutation: editHouse, refetch: refetchHouses } = useHouses({})
   const { data: users = [] } = useUsers()
   const { data: allRentals = [], addMutation: addRental, deleteMutation: deleteRental } = useRentals({})
   const { data: allPayments = [] } = usePayments({})
@@ -40,40 +40,69 @@ export default function AdminBookings() {
   const pending = bookings.filter(b => b.status === 'Pending')
   const other = bookings.filter(b => b.status !== 'Pending')
 
-  const approve = (booking) => {
-    editMutation.mutate({ id: booking.id, status: 'Approved' }, {
-      onSuccess: () => {
-        // Mark the house as Rented
-        const house = houses.find(h => h.id === booking.houseId)
-        if (house) editHouse.mutate({ ...house, id: house.id, status: 'Rented' })
-        // Create a rental record
-        const startDate = booking.moveInDate || new Date().toISOString().split('T')[0]
-        const endDate = new Date(new Date(startDate).setFullYear(new Date(startDate).getFullYear() + 1)).toISOString().split('T')[0]
-        addRental.mutate({
-          tenantId: booking.tenantId,
-          houseId: booking.houseId,
-          bookingId: booking.id,
-          startDate,
-          endDate,
-          price: booking.price,
-          status: 'active',
-          renewals: 0,
-        }, {
-          onSuccess: () => toast.success('Booking approved & rental created!')
-        })
-      }
-    })
+  const approve = async (booking) => {
+    // Check if property is already rented
+    const house = houses.find(h => h.id === booking.houseId)
+    
+    if (!house) {
+      toast.error('Property not found')
+      return
+    }
+    
+    // Check if property is already rented (using PascalCase)
+    if (house.status === 'Rented') {
+      toast.error(`Cannot approve: ${house.title} is already rented!`)
+      return
+    }
+    
+    try {
+      // 1. Update booking status to Approved
+      await editMutation.mutateAsync({ id: booking.id, status: 'Approved' })
+      
+      // 2. Update house status to Rented (PascalCase)
+      await editHouse.mutateAsync({ 
+        ...house, 
+        id: house.id, 
+        status: 'Rented'
+      })
+      
+      // 3. Create rental record
+      const startDate = booking.moveInDate || new Date().toISOString().split('T')[0]
+      const endDate = new Date(new Date(startDate).setMonth(new Date(startDate).getMonth() + 1)).toISOString().split('T')[0]
+      
+      await addRental.mutateAsync({
+        tenantId: booking.tenantId,
+        houseId: booking.houseId,
+        bookingId: booking.id,
+        startDate,
+        endDate,
+        price: booking.price,
+        status: 'active',
+        renewals: 0,
+      })
+      
+      // 4. Refresh data
+      refetchHouses()
+      toast.success(`Booking approved! ${house.title} is now marked as Rented`)
+      
+    } catch (error) {
+      console.error('Approval error:', error)
+      toast.error('Failed to approve booking')
+    }
   }
 
   const reject = (id, note) => {
     const booking = bookings.find(b => b.id === id)
     const linkedRental = allRentals.find(r => r.bookingId === id)
+    
     editMutation.mutate({ id, status: 'Rejected', rejectionNote: note || null }, {
       onSuccess: () => {
-        // Free up the house back to Available
+        // Free up the house back to Available if it was changed
         if (booking) {
           const house = houses.find(h => h.id === booking.houseId)
-          if (house) editHouse.mutate({ ...house, id: house.id, status: 'Available' })
+          if (house && house.status === 'Rented') {
+            editHouse.mutate({ ...house, id: house.id, status: 'Available' })
+          }
         }
         if (linkedRental) deleteRental.mutate(linkedRental.id)
         toast.success('Booking rejected')
@@ -85,24 +114,37 @@ export default function AdminBookings() {
   const renderCard = (b) => {
     const house = houses.find(h => h.id === b.houseId)
     const tenant = users.find(u => u.id === b.tenantId)
-    const tenantPayments = allPayments.filter(p => p.tenantId === b.tenantId)
-    const tenantRentals = allRentals.filter(r => r.tenantId === b.tenantId)
+    const tenantPayments = allPayments.filter(p => p.tenantId === b.tenantId) // All payments for this tenant
+    const tenantRentals = allRentals.filter(r => r.tenantId === b.tenantId) // All rentals for this tenant
     const tenantIssues = allIssues.filter(i => i.tenantId === b.tenantId)
-    const score = calculateRentScore(tenantPayments, tenantRentals, tenantIssues)
+    const score = calculateRentScore(tenantPayments, tenantRentals, tenantIssues);
+    
+    // Check if property is already rented (for warning)
+    const isPropertyRented = house?.status === 'Rented'
 
     return (
       <motion.div key={b.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="card p-4">
         <div className="flex gap-4">
           {house && (
-            <img src={house.images?.[0]} alt={house.title} className="w-20 h-16 rounded-xl object-cover shrink-0" onError={e => e.target.src = 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=200&q=60'} />
+            <img src={house.images?.[0]} alt={house.title} className="w-16 h-16 sm:w-20 sm:h-16 rounded-xl object-cover shrink-0" onError={e => e.target.src = 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=200&q=60'} />
           )}
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-2 mb-1">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 mb-1">
               <div>
                 <div className="font-semibold text-gray-900 dark:text-white text-sm">{house?.title || `House #${b.houseId}`}</div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">{house?.location}</div>
+                {/* Show property status badge */}
+                {house && (
+                  <span className={`text-xs px-2 py-0.5 rounded-full mt-1 inline-block ${
+                    house.status === 'Rented'
+                      ? 'bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-300'
+                      : 'bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-300'
+                  }`}>
+                    {house.status === 'Rented' ? 'Currently Rented' : 'Available'}
+                  </span>
+                )}
               </div>
-              <div className="flex flex-col items-end gap-1">
+              <div className="flex flex-col items-start sm:items-end gap-1">
                 {b.status === 'Pending' && (
                   <span className="flex items-center gap-1 text-xs bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full font-semibold">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" /> Pending Review
@@ -120,11 +162,27 @@ export default function AdminBookings() {
               <span className="font-mono font-semibold text-brand-600 dark:text-brand-400">{formatKES(b.price)}/mo</span>
             </div>
             {b.status === 'Pending' && (
-              <div className="flex gap-2">
-                <button onClick={() => approve(b)} className="flex items-center gap-1 text-xs bg-brand-500 hover:bg-brand-600 text-white px-3 py-1.5 rounded-lg font-semibold transition-all">
-                  <Check size={12} /> Approve
-                </button>
-                <button onClick={() => setRejectId(b.id)} className="flex items-center gap-1 text-xs bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg font-semibold transition-all">
+              <div className="flex gap-2 flex-wrap">
+                {isPropertyRented ? (
+                  <button 
+                    disabled 
+                    className="flex items-center gap-1 text-xs bg-gray-400 cursor-not-allowed text-white px-3 py-1.5 rounded-lg font-semibold"
+                    title="Property is already rented"
+                  >
+                    <AlertCircle size={12} /> Property Already Rented
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => approve(b)} 
+                    className="flex items-center gap-1 text-xs bg-brand-500 hover:bg-brand-600 text-white px-3 py-1.5 rounded-lg font-semibold transition-all"
+                  >
+                    <Check size={12} /> Approve & Mark Rented
+                  </button>
+                )}
+                <button 
+                  onClick={() => setRejectId(b.id)} 
+                  className="flex items-center gap-1 text-xs bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg font-semibold transition-all"
+                >
                   <X size={12} /> Reject
                 </button>
               </div>
