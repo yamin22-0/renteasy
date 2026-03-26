@@ -13,7 +13,7 @@ npm run start
 
 # 3. Open your browser
 # Frontend: http://localhost:5173
-# API:      http://localhost:3001
+# API:      Configured via VITE_API_URL (Default: http://localhost:3001)
 ```
 
 ## 🔐 Demo Credentials
